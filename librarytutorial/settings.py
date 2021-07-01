@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-import secret
+from . import secret
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,7 @@ SECRET_KEY = secret.secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = secret.debug
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = secret.allowed_hosts
 
 
 # Application definition
