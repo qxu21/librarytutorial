@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Local Library Home</h1>
+  <h2>What's in stock?</h2>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+    <li><strong>By genre:</strong>
+      <ul>
+      {% for k, v in genre_counts.items %}
+        <li>{{ k }}: {{ v }}</li>
+      {% endfor %}
+      </ul>
+    </li>
+  </ul>
+{% endblock %}

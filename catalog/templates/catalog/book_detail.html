@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ book.title }}</h1>
+
+  <p><strong>Author:</strong> <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Summary:</strong> {{ book.summary }}</p>
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p><strong>Language:</strong> {{ book.language }}</p>
+  <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+
+    {# a model.submodel_set is constructed for if the foreign key only goes one way #}
+    {% for copy in book.bookinstance_set.all %}
+      <hr>
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {# for a choices field, get_FIELD_display() is a method #}
+        {{ copy.get_status_display }}
+      </p>
+      {% if copy.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+      {% endif %}
+      <p class="text-muted"><strong>Id:</strong> {{ copy.short_id }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
